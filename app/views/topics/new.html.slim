@@ -1,0 +1,15 @@
+= form_for @topic do |f|
+  - if @topic.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@topic.errors.count, "error")} prohibited this topic from being saved:"
+      ul
+        - @topic.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :标题
+    = f.text_field :title
+  .field
+    = f.label :正文
+    = f.text_area :body
+  .actions = f.submit '发表'

@@ -1,0 +1,8 @@
+h1 最新主题
+
+- @topics.each do |topic|
+  h3 = link_to topic.title, topic
+  p  = topic.body
+
+h2 
+	=link_to '新建主题', new_topic_path
