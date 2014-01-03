@@ -9,4 +9,22 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-BBS::Application.config.secret_key_base = '8b1de1009c1fa40f6bd853144c618a61806755e74bfffbad946f51ef20c9bf9790aefdfd5e483a80400d9d659cc0cc7dafd2893e4ee4fb643bb336d5b62d7cd1'
+
+# BBS::Application.config.secret_key_base = '8b1de1009c1fa40f6bd853144c618a61806755e74bfffbad946f51ef20c9bf9790aefdfd5e483a80400d9d659cc0cc7dafd2893e4ee4fb643bb336d5b62d7cd1'
+
+require 'securerandom'
+
+def secure_token
+  token_file = Rails.root.join('.secret')
+  if File.exist?(token_file)
+    # Use the existing token.
+    File.read(token_file).chomp
+  else
+    # Generate a new token and store it in token_file.
+    token = SecureRandom.hex(64)
+    File.write(token_file, token)
+    token
+  end
+end
+
+BBS::Application.config.secret_key_base = secure_token
