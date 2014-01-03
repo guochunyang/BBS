@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   before_save {self.username = username.downcase}
   before_save {self.email = email.downcase}
 
+  #before_save :is_password_same?
+
   validates :username,
             :presence => true,
             :length => {:maximum => 20},
@@ -31,6 +33,20 @@ class User < ActiveRecord::Base
     @password = pass
     generate_password(pass)
   end
+
+  #def password_confirmation
+  #
+  #end
+  #
+  #def password_confirmation=(pass)
+  #  return unless pass
+  #  @password_confirmation = pass
+  #end
+  #
+  #
+  #def is_password_same?
+  #  @password == @password_confirmation
+  #end
 
 
   def authenticate(pass)
