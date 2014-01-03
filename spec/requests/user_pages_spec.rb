@@ -1,17 +1,11 @@
+# coding: utf-8
 require 'spec_helper'
 
 describe "UserPages" do
 
   subject {page}
 
-  describe "signup page" do
 
-
-    before { visit signup_path}
-
-    it {should have_content('用户注册')}
-    it {should have_title('注册')}
-  end
 
   describe "show page" do
 
@@ -20,6 +14,24 @@ describe "UserPages" do
 
     it {should have_content(user.username)}
     it {should have_title(user.username)}
+  end
+
+
+  describe "signup page" do
+
+
+    before { visit signup_path}
+    let(:submit) {"注册"}
+
+    describe "with invalid information" do
+      it "should not create a user" do
+        expect {click_button submit}.not_to change(User, :count)
+      end
+    end
+
+
+
+
   end
 
 end

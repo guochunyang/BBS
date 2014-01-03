@@ -1,4 +1,18 @@
-- provide(:title, '注册')
+-provide(:title, '注册')
+h1 注册
+div class="row"
+  div class="span6 offset3"
+    = form_for(@user) do |f|
+      = f.label :username
+      = f.text_field :username
 
+      = f.label :email
+      = f.text_field :email
 
-p 用户注册
+      = f.label :password
+      = f.password_field :password
+
+      = f.label :password_confirmation
+      = f.password_field :password_confirmation
+
+      = f.submit "Create my account", class: "btn btn-large btn-primary"

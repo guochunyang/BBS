@@ -34,19 +34,19 @@ class User < ActiveRecord::Base
     generate_password(pass)
   end
 
-  #def password_confirmation
-  #
-  #end
-  #
-  #def password_confirmation=(pass)
-  #  return unless pass
-  #  @password_confirmation = pass
-  #end
-  #
-  #
-  #def is_password_same?
-  #  @password == @password_confirmation
-  #end
+  def password_confirmation
+
+  end
+
+  def password_confirmation=(pass)
+    return unless pass
+    @password_confirmation = pass
+  end
+
+
+  def is_password_same?
+    @password == @password_confirmation
+  end
 
 
   def authenticate(pass)
