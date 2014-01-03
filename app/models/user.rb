@@ -33,6 +33,13 @@ class User < ActiveRecord::Base
   end
 
 
+  def authenticate(pass)
+    if Digest::SHA256.hexdigest(pass + self.salt) == self.hashed_password
+      return self
+    end
+    false
+  end
+
 
   private
     def generate_password(pass)

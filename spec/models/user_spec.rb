@@ -97,4 +97,19 @@ describe User do
   end
 
 
+  describe "authenticate authenticate method" do
+    before {@user.save}
+    let(:found_user) {User.find_by(email: @user.email, username: @user.username)}
+
+    describe "with valid password" do
+     it {should eq found_user.authenticate(@user.password)}
+    end
+
+    describe "with invalid password" do
+      it {should_not eq found_user.authenticate("invalid")}
+    end
+
+  end
+
+
 end
