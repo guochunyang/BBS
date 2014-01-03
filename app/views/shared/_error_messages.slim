@@ -1,0 +1,8 @@
+- if @user.errors.any?
+	div id="error_explanation"
+		div class="alert alert-error"
+			| 表单包含#{pluralize(@user.errors.count, "error")}个错误
+		ul
+			- @user.errors.full_messages.each do |msg|
+				li 
+					| * #{msg}

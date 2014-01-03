@@ -3,7 +3,6 @@ class User < ActiveRecord::Base
   before_save {self.username = username.downcase}
   before_save {self.email = email.downcase}
 
-  #before_save :is_password_same?
 
   validates :username,
             :presence => true,
@@ -20,10 +19,16 @@ class User < ActiveRecord::Base
   validates :password,
             :presence => true,
             :length => {:minimum => 8,
-                        :maximum => 20}
+                        :maximum => 20},
+            :confirmation => true
+
+  validates :password_confirmation,
+            :presence => true
+
+  #validates_confirmation_of :password, :message => "两次密码不一致"
 
 
-	def password
+  def password
 		@password
   end
 
@@ -35,17 +40,12 @@ class User < ActiveRecord::Base
   end
 
   def password_confirmation
-
+    @password_confirmation
   end
 
   def password_confirmation=(pass)
     return unless pass
     @password_confirmation = pass
-  end
-
-
-  def is_password_same?
-    @password == @password_confirmation
   end
 
 
