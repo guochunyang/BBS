@@ -26,5 +26,6 @@ module BBS
     # config.i18n.default_locale = :de
 
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
+    I18n.enforce_available_locales = false
   end
 end
