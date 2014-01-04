@@ -14,6 +14,7 @@ describe User do
   it {should respond_to(:hashed_password)}
   it {should respond_to(:salt)}
   it {should respond_to(:password)}
+  it {should respond_to(:password_confirmation)}
 
   it {should be_valid}
 
@@ -93,6 +94,21 @@ describe User do
   describe "when password is too long" do
     before do
       @user.password = "a" * 21
+    end
+    it {should_not be_valid}
+  end
+
+  describe "when password_confirmation is not present" do
+    before do
+      @user.password_confirmation = " "
+    end
+    it {should_not be_valid}
+  end
+
+  describe "when password doesn't equal password_confirmation" do
+    before do
+      @user.password = "helloworld"
+      @user.password_confirmation = "helloworldOther"
     end
     it {should_not be_valid}
   end
