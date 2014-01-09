@@ -1,3 +1,4 @@
+# coding: utf-8
 class User < ActiveRecord::Base
 
   before_save {self.username = username.downcase}
@@ -20,7 +21,7 @@ class User < ActiveRecord::Base
             :presence => true,
             :length => {:minimum => 8,
                         :maximum => 20},
-            :confirmation => true
+            :confirmation => {:message => '两次密码不一致'}
 
   validates :password_confirmation,
             :presence => true
@@ -49,6 +50,7 @@ class User < ActiveRecord::Base
   end
 
 
+  # 密码认证
   def authenticate(pass)
     if Digest::SHA256.hexdigest(pass + self.salt) == self.hashed_password
       return self
@@ -57,11 +59,16 @@ class User < ActiveRecord::Base
   end
 
 
+
+
+
+
   private
     def generate_password(pass)
       salt = Array.new(10){rand(1024).to_s(36)}.join
       self.salt, self.hashed_password =
           salt, Digest::SHA256.hexdigest(pass + salt)
     end
+
 
 end
