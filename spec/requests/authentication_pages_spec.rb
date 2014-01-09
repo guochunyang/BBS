@@ -45,7 +45,10 @@ describe "AuthenticationPages" do
       it {should have_link('退出', href: signout_path)}
       it {should_not have_link('登陆', href: signin_path)}
 
-
+      describe "followed by signout" do
+        before {click_link "退出"}
+        it {should have_link('登陆')}
+      end
 
     end
 

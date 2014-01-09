@@ -18,4 +18,10 @@ module SessionsHelper
     @current_user ||= User.find_by(id: session[:user_id])
   end
 
+
+  def sign_out
+    current_user = nil
+    session[:user_id] = nil
+  end
+
 end
