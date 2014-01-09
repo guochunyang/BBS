@@ -46,6 +46,18 @@ describe "UserPages" do
       it "should create a user" do
         expect { click_button submit }.to change(User, :count).by(1)
       end
+
+
+      describe "after saving the user" do
+
+        before { click_button submit}
+        let(:user) {User.find_by(email: 'test@test.com')}
+
+        it {should have_link('退出')}
+        it {should have_title(user.username)}
+        it {should have_selector('div.alert.alert-success', text: '欢迎你')}
+
+      end
     end
   end
 
