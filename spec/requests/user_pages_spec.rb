@@ -5,6 +5,7 @@ describe "UserPages" do
 
   subject {page}
 
+  #用户的展示页面
   describe "show page" do
     let(:user) {FactoryGirl.create(:user)}
     before {visit user_path(user)}
@@ -13,16 +14,19 @@ describe "UserPages" do
     it {should have_title(user.username)}
   end
 
+  #注册页面
   describe "signup page" do
     before { visit signup_path}
     let(:submit) {"注册"}
 
+    #表单为空
     describe "with empty information" do
       it "should not create a user" do
         expect {click_button submit}.not_to change(User, :count)
       end
     end
 
+    #两次密码不一致
     describe "with two password different" do
       before do
         fill_in "Username",         with: "hello"
@@ -35,6 +39,7 @@ describe "UserPages" do
       end
     end
 
+    #填写了合法的信息
     describe "with valid information" do
       before do
         fill_in "Username",         with: "hello"
@@ -48,6 +53,7 @@ describe "UserPages" do
       end
 
 
+      #注册成功后
       describe "after saving the user" do
 
         before { click_button submit}

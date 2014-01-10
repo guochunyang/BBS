@@ -5,6 +5,7 @@ describe "AuthenticationPages" do
   
   subject {page}
 
+  #测试登陆页面
   describe "signin page" do
     before { visit signin_path}
 
@@ -12,6 +13,7 @@ describe "AuthenticationPages" do
     it {should have_title('登陆')}
   end
 
+  #测试登陆动作
   describe "signin" do
     before {visit signin_path}
 
@@ -40,11 +42,14 @@ describe "AuthenticationPages" do
         click_button "登陆"
       end
 
+      #登陆成功后
       it {should have_title(user.username)}
       it {should have_link('资料', href: user_path(user))}
       it {should have_link('退出', href: signout_path)}
       it {should_not have_link('登陆', href: signin_path)}
 
+
+      #测试注销动作
       describe "followed by signout" do
         before {click_link "退出"}
         it {should have_link('登陆')}

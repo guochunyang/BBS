@@ -9,6 +9,7 @@ describe User do
 
   subject {@user}
 
+  #必须存在下列的字段
   it {should respond_to(:username)}
   it {should respond_to(:email)}
   it {should respond_to(:hashed_password)}
@@ -114,6 +115,7 @@ describe User do
   end
 
 
+  #密码验证方法
   describe "authenticate authenticate method" do
     before {@user.save}
     let(:found_user) {User.find_by(email: @user.email, username: @user.username)}
