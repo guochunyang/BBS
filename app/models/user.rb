@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 
   before_save {self.username = username.downcase}
   before_save {self.email = email.downcase}
+  before_create :generate_remember_token
 
 
   validates :username,
@@ -59,15 +60,23 @@ class User < ActiveRecord::Base
   end
 
 
+  def User.new_remember_token
+    SecureRandom.urlsafe_base64
+  end
 
-
-
+  def User.encrypt(token)
+    Digest::SHA1.hexdigest(token.to_s)
+  end
 
   private
     def generate_password(pass)
       salt = Array.new(10){rand(1024).to_s(36)}.join
       self.salt, self.hashed_password =
           salt, Digest::SHA256.hexdigest(pass + salt)
+    end
+
+    def generate_remember_token
+      self.remember_token = User.encrypt(User.new_remember_token)
     end
 
 

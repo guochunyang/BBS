@@ -9,13 +9,15 @@ describe User do
 
   subject {@user}
 
-  #必须存在下列的字段
+  #必须存在下列的字段和方法
   it {should respond_to(:username)}
   it {should respond_to(:email)}
   it {should respond_to(:hashed_password)}
   it {should respond_to(:salt)}
   it {should respond_to(:password)}
   it {should respond_to(:password_confirmation)}
+  it {should respond_to(:remember_token)}
+  it {should respond_to(:authenticate)}
 
   it {should be_valid}
 
@@ -128,6 +130,12 @@ describe User do
       it {should_not eq found_user.authenticate("invalid")}
     end
 
+  end
+
+  #测试token是否为空
+  describe "remember token" do
+    before { @user.save}
+    its(:remember_token) {should_not be_blank}
   end
 
 

@@ -7,9 +7,11 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(email: params[:session][:email].downcase)
+
     if user && user.authenticate(params[:session][:password])
       sign_in user
-      #session[:user_id] = user.id
+      sign_in_remember user if params[:session][:remember_me] == '1'
+
       redirect_to user
     else
       flash.now[:error] = "用户名或者密码错误"
